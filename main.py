@@ -1,6 +1,7 @@
 import csv
 import argparse
 from tabulate import tabulate
+from reports import generate_report
 
 
 def read_csv_files(file_paths: list):
@@ -12,6 +13,7 @@ def read_csv_files(file_paths: list):
                 yield row
 
 def parse_args():
+    """Парсинг аргументов командной строки"""
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
@@ -29,9 +31,21 @@ def parse_args():
     )
     return parser.parse_args()
 
-print(tabulate(
-    read_csv_files(["data/products1.csv", "data/products2.csv"]),
-    headers="keys",
-    tablefmt="grid",
-    floatfmt=".2f"
-))
+def main():
+    args = parse_args()
+    data = list(read_csv_files(file_paths=args.files))
+    report = generate_report(report_type=args.report, data=data)
+    if report:
+        print(tabulate(
+            report,
+            headers="keys",
+            tablefmt="grid",
+            floatfmt=".2f"
+        ))
+    else:
+        print("Данные для отчета не найдены")
+
+
+if __name__ == '__main__':
+    main()
+
