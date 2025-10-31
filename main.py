@@ -1,7 +1,7 @@
 import csv
 import argparse
 from tabulate import tabulate
-from reports import generate_report
+from reports.generate_reports import generate_report
 
 
 def read_csv_files(file_paths: list):

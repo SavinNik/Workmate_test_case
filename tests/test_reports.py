@@ -1,5 +1,6 @@
 import pytest
-from reports import generate_report, generate_average_rating_report
+from reports.generate_reports import generate_report
+from reports.average_rating_report import generate_average_rating_report
 
 
 def test_generate_report_with_invalid_type():
